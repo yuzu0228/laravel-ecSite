@@ -31,5 +31,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('/cartdelete','ShopController@deleteCart');
 
+    Route::post('/numberchange','ShopController@numberChange');
+
     Route::post('/checkout', 'ShopController@checkout');
 });

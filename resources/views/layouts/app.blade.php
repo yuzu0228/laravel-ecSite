@@ -50,7 +50,7 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown flex">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -62,16 +62,15 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <a class="dropdown-item" href="{{ url('/mycart') }}">
-                                        カートを見る
-                                    </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
 
-                                <a href="{{ route('mycart') }}" >
+                                
+                            </li>
+                            <li class="nav-item dropdown flex">
+                                <a href="{{ route('mycart') }}" class="cart">
                                     <img src="{{ asset('image/cart.png') }}" class="cart" >
                                 </a>
                             </li>

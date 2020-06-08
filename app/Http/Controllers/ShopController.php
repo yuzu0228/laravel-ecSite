@@ -33,6 +33,18 @@ class ShopController extends Controller
         return view('mycart', $data)->with('message', $message);
     }
 
+    public function numberChange(Request $request, Cart $cart)
+    {
+        $stock_id = $request->stock_id;
+        $item_number = $request->item_number;
+
+        $cart->numberChange($stock_id, $item_number);
+
+        $data = $cart->showCart();
+
+        return view('mycart', $data);
+    }
+
     public function deleteCart(Request $request, Cart $cart)
     {
         $stock_id=$request->stock_id;

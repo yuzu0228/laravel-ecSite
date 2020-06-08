@@ -9,7 +9,8 @@ class Cart extends Model
 {
     protected $fillable = [
         'stock_id',
-        'user_id'
+        'user_id',
+        'number'
     ];
 
     public function showCart()
@@ -17,12 +18,12 @@ class Cart extends Model
         $user_id = Auth::id();
         $data['my_carts'] = $this->where('user_id',$user_id)->get();
 
-        $data['count']=0;
-        $data['sum']=0;
+        $data['sum'] = 0;
+        $data['count'] = 0;
         
         foreach($data['my_carts'] as $my_cart){
+            $data['sum'] += $my_cart->stock->fee*$my_cart->number;
             $data['count']++;
-            $data['sum'] += $my_cart->stock->fee;
         }
         return $data;
     }
@@ -45,6 +46,18 @@ class Cart extends Model
        }
 
        return $message;
+    }
+
+    public function numberChange($stock_id, $item_number)
+    {
+        $user_id = Auth::id();
+        
+        $data = [
+            'number' => $item_number,
+            'updated_at' => now(),
+        ];
+
+        return $this->where('user_id', $user_id)->where('stock_id',$stock_id)->update($data);
     }
 
     public function deleteCart($stock_id)
